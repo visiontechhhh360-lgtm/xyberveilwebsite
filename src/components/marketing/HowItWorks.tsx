@@ -6,7 +6,7 @@ const steps = [
   {
     n: "01",
     title: "Download",
-    desc: "Get the Xyber Veil app for your device. It’s built for fast, private internet access.",
+    desc: "Open the Download page and install Xyber Veil for Android, iOS, or Windows—then sign in with the email you used at checkout.",
   },
   {
     n: "02",

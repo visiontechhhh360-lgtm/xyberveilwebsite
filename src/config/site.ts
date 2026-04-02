@@ -10,14 +10,38 @@ export const site = {
 export const mainNav = [
   { href: "/", label: "Home" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/download", label: "Download" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
 export const footerQuickLinks = [
   { href: "/", label: "Home" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/download", label: "Download" },
   { href: "/contact", label: "Contact" },
 ] as const;
+
+/**
+ * Official app distribution URLs. Replace with your live Play / App Store /
+ * Microsoft Store listings (or a signed Windows installer URL) before launch.
+ */
+export const downloadLinks = {
+  android: {
+    href: "https://play.google.com/store/apps/details?id=com.xyberveil.vpn",
+    title: "Android",
+    subtitle: "Get it on Google Play",
+  },
+  ios: {
+    href: "https://apps.apple.com/app/xyber-veil/id0000000000",
+    title: "iPhone & iPad",
+    subtitle: "Download on the App Store",
+  },
+  windows: {
+    href: "https://apps.microsoft.com/store/detail/xyber-veil/9nxxxxxxxxxx",
+    title: "Windows",
+    subtitle: "Get from Microsoft Store",
+  },
+} as const;
 
 export const footerLegalLinks = [
   { href: "/privacy-policy", label: "Privacy Policy" },

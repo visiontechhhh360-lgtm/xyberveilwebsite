@@ -83,7 +83,7 @@ const KNOWLEDGE: KnowledgeItem[] = [
     intent: "usage",
     question: "Which devices are supported?",
     answer:
-      "Xyber Veil is positioned for cross-platform use on desktop and mobile. Device allowance depends on your selected plan (trial, monthly, or yearly).",
+      "Xyber Veil supports Android, iOS/iPadOS, and Windows. Use the Download page for store links; device limits follow your plan (trial, monthly, or yearly).",
     keywords: [
       "device",
       "devices",
@@ -103,7 +103,7 @@ const KNOWLEDGE: KnowledgeItem[] = [
     intent: "support",
     question: "How do I set up Xyber Veil?",
     answer:
-      "Quick setup: choose a plan -> enter account details -> checkout -> payment -> connect. If setup fails, share your device + browser + exact error and I can guide step-by-step troubleshooting.",
+      "Choose a plan, complete checkout and payment, then open the Download page (or your payment success screen) to install the app for Android, iOS, or Windows and sign in with your account email.",
     keywords: [
       "setup",
       "install",
@@ -112,6 +112,29 @@ const KNOWLEDGE: KnowledgeItem[] = [
       "onboard",
       "start",
       "connect",
+    ],
+  },
+  {
+    id: "download-app",
+    intent: "support",
+    question: "Where do I download the app?",
+    answer:
+      "Open the Download page from the main menu for Android (Google Play), iPhone/iPad (App Store), and Windows (Microsoft Store). After payment, the same install links are shown on the success page and can be sent to your email.",
+    keywords: [
+      "download",
+      "apk",
+      "app",
+      "install",
+      "google play",
+      "play store",
+      "app store",
+      "iphone",
+      "ipad",
+      "android",
+      "windows",
+      "microsoft store",
+      "exe",
+      "msi",
     ],
   },
   {

@@ -36,7 +36,7 @@ export default function ContactPage() {
                 href="mailto:support@xyberveil.example"
                 className="mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-300/20 via-sky-400/20 to-teal-300/20 px-5 py-3 text-sm font-semibold ring-1 ring-white/10 transition hover:scale-[1.02]"
               >
-                info@xyberveil.com
+                support@xyberveil.com
               </a>
               <p className="mt-3 text-xs text-white/60">
                 Demo address. Replace with your production support email.

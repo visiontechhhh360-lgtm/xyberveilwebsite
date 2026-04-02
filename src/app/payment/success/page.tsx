@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import DownloadAppGrid from "@/components/site/DownloadAppGrid";
 import { Reveal } from "@/components/motion/Reveal";
 import { getPlanById } from "@/lib/plans";
 
@@ -39,9 +40,23 @@ export default async function PaymentSuccessPage({ searchParams }: Props) {
             <Link href="/" className="rounded-2xl bg-gradient-to-r from-cyan-300/20 via-sky-400/20 to-teal-300/20 px-5 py-3 text-sm font-semibold ring-1 ring-white/10 transition hover:scale-[1.02]">
               Go to Home
             </Link>
+            <Link href="/download" className="rounded-2xl glass px-5 py-3 text-sm font-semibold ring-1 ring-white/10 transition hover:scale-[1.02]">
+              Download page
+            </Link>
             <Link href="/contact" className="rounded-2xl glass px-5 py-3 text-sm font-semibold ring-1 ring-white/10 transition hover:scale-[1.02]">
               Contact Support
             </Link>
+          </div>
+        </section>
+
+        <section className="mt-8 rounded-[2rem] glass-strong p-8 ring-1 ring-white/10 soft-shadow">
+          <h2 className="text-xl font-semibold">Download the app</h2>
+          <p className="mt-2 text-sm text-white/70">
+            Choose your platform below. Links open the official store listing or
+            installer for {plan?.name ? `${plan.name} subscribers` : "your plan"}.
+          </p>
+          <div className="mt-6">
+            <DownloadAppGrid purchaserEmail={email || undefined} />
           </div>
         </section>
       </div>

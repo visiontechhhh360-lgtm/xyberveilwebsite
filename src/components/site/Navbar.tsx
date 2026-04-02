@@ -16,6 +16,7 @@ export default function Navbar() {
   const activeHref = useMemo(() => {
     if (pathname?.startsWith("/pricing")) return "/pricing";
     if (pathname?.startsWith("/contact")) return "/contact";
+    if (pathname?.startsWith("/download")) return "/download";
     return "/";
   }, [pathname]);
 

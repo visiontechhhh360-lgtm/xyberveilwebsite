@@ -54,11 +54,14 @@ export default function Hero() {
               initial={reduce ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...t, delay: reduce ? 0 : 0.24 }}
-              className="flex flex-col gap-3 sm:flex-row sm:items-center"
+              className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
             >
               <Button href="/plans/yearly/details">Get Started</Button>
               <Button href="/pricing" variant="ghost">
                 View Pricing
+              </Button>
+              <Button href="/download" variant="ghost">
+                Download apps
               </Button>
             </motion.div>
 
