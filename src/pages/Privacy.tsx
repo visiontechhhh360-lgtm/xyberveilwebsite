@@ -7,27 +7,79 @@ const Privacy = () => (
       <div className="container mx-auto px-4 max-w-3xl">
         <AnimatedSection>
           <h1 className="font-display text-4xl font-bold mb-8 glow-text">Privacy Policy</h1>
-          <div className="prose prose-invert prose-sm max-w-none space-y-6 text-muted-foreground leading-relaxed">
-            <p><strong className="text-foreground">Last updated:</strong> April 7, 2026</p>
+   <div className="mx-auto max-w-3xl">
 
-            <h2 className="font-display text-lg font-bold text-foreground mt-8">1. Information We Collect</h2>
-            <p>Xyber Veil collects minimal information necessary to provide our VPN service. We do <strong className="text-foreground">not</strong> log your browsing activity, connection timestamps, DNS queries, IP addresses, or any traffic data.</p>
+             <p className="mt-3 text-xs uppercase tracking-widest text-white/50">
+            Current as of 08 July 2025
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-white/70">
+            Learn how we handle your personal data and protect your information.
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-white/70">
+            This Privacy Policy outlines the principles of personal and technical data processing carried out by QyBitz Solutions within the scope of its digital VPN service.
+          </p>
 
-            <h2 className="font-display text-lg font-bold text-foreground mt-8">2. How We Use Information</h2>
-            <p>Account information (email address) is used solely for account management, billing, and customer support. We never sell, trade, or share your personal data with third parties.</p>
+          <section className="mt-8 space-y-3">
+            <h2 className="text-xl font-semibold">1. Data Processed</h2>
+            <p className="text-sm leading-relaxed text-white/70">
+              <strong>Email address:</strong> used solely for sending a one-time OTP code, not stored or linked to the user's activity.
+            </p>
+            <p className="text-sm leading-relaxed text-white/70 mt-2">
+              <strong>Technical data</strong> (e.g., device type, browser) may be temporarily used to ensure proper interface display and service functionality, without being associated with an individual user.
+            </p>
+          </section>
 
-            <h2 className="font-display text-lg font-bold text-foreground mt-8">3. Data Security</h2>
-            <p>We employ 256-bit AES encryption, perfect forward secrecy, and secure protocols to protect all data in transit. Our infrastructure is regularly audited by independent security firms.</p>
+          <section className="mt-8 space-y-3">
+            <h2 className="text-xl font-semibold">2. No-Log Policy</h2>
+            <p className="text-sm leading-relaxed text-white/70">
+              The Company adheres to a strict No-Log policy. We do not collect, store, or process the following:
+              <ul className="list-disc ml-5 mt-2">
+                <li>IP addresses</li>
+                <li>DNS queries</li>
+                <li>Connection routes</li>
+                <li>Timestamps</li>
+                <li>Traffic volume</li>
+              </ul>
+            </p>
+          </section>
 
-            <h2 className="font-display text-lg font-bold text-foreground mt-8">4. No-Logs Policy</h2>
-            <p>We maintain a strict no-logs policy. We do not monitor, record, log, store, or share any of your online activity. This policy has been independently verified and audited.</p>
+          <section className="mt-8 space-y-3">
+            <h2 className="text-xl font-semibold">3. Data Retention</h2>
+            <p className="text-sm leading-relaxed text-white/70">
+              The Company does not store personal data.
+            </p>
+            <p className="text-sm leading-relaxed text-white/70 mt-2">
+              Email is processed only at the moment of sending the one-time OTP code.
+            </p>
+            <p className="text-sm leading-relaxed text-white/70 mt-2">
+              Google authentication data (such as the email address or authentication token) is used only for the purpose of login and is not stored or linked to any user activity.
+            </p>
+            <p className="text-sm leading-relaxed text-white/70 mt-2">
+              Technical data is deleted after the session ends and is not stored in any databases.
+            </p>
+          </section>
 
-            <h2 className="font-display text-lg font-bold text-foreground mt-8">5. Cookies</h2>
-            <p>Our website uses essential cookies only. No tracking cookies, no analytics cookies, no advertising cookies.</p>
+          <section className="mt-8 space-y-3">
+            <h2 className="text-xl font-semibold">4. Data Disclosure to Third Parties</h2>
+            <p className="text-sm leading-relaxed text-white/70">
+              The Company may share limited technical data with payment providers or contractors when necessary for service delivery. Such data does not include any personally identifiable information and is used solely to fulfill specific technical requirements.
+            </p>
+          </section>
 
-            <h2 className="font-display text-lg font-bold text-foreground mt-8">6. Contact</h2>
-            <p>For privacy inquiries, contact us at <span className="text-primary">privacy@xyberveil.com</span>.</p>
-          </div>
+          <section className="mt-8 space-y-3">
+            <h2 className="text-xl font-semibold">5. User Responsibility</h2>
+            <p className="text-sm leading-relaxed text-white/70">
+              Users are solely responsible for ensuring that the use of the service complies with the laws and regulations of their jurisdiction, including VPN usage and data protection requirements.
+            </p>
+          </section>
+
+          <section className="mt-8 space-y-3">
+            <h2 className="text-xl font-semibold">6. Contact</h2>
+            <p className="text-sm leading-relaxed text-white/70">
+              For any questions regarding personal data processing, users may contact the Company through the email address provided on the website.
+            </p>
+          </section>
+        </div>
         </AnimatedSection>
       </div>
     </section>
