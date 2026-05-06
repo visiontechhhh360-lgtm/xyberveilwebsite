@@ -8,15 +8,15 @@ import { Label } from "@/components/ui/label";
 import Layout from "@/components/Layout";
 
 const planData: Record<string, { name: string; price: string; period: string; desc: string }> = {
-  monthly: { name: "Starter", price: "$12.99", period: "/month", desc: "Billed monthly" },
-  yearly: { name: "Pro", price: "$59.88", period: "/year", desc: "That's just $4.99/mo" },
-  lifetime: { name: "Lifetime", price: "$149.99", period: " once", desc: "One-time payment, forever access" },
+  monthly: { name: "Monthly", price: "$4.99", period: "/month", desc: "Billed monthly" },
+  yearly: { name: "Annual", price: "$48.99", period: "/year", desc: "Billed once per subscription term" },
 };
 
 const Checkout = () => {
   const [params] = useSearchParams();
-  const planId = params.get("plan") || "yearly";
-  const plan = planData[planId] || planData.yearly;
+  const rawPlan = params.get("plan") || "yearly";
+  const planId = rawPlan === "monthly" || rawPlan === "yearly" ? rawPlan : "yearly";
+  const plan = planData[planId];
   const [step, setStep] = useState<"payment" | "success">("payment");
   const [payMethod, setPayMethod] = useState<"card" | "google" | "apple">("card");
   const [loading, setLoading] = useState(false);
@@ -56,7 +56,7 @@ const Checkout = () => {
                       </div>
                       <div>
                         <h1 className="font-display text-lg font-bold tracking-wider">Secure Checkout</h1>
-                        <p className="text-[10px] text-muted-foreground">256-bit encrypted connection</p>
+                        <p className="text-[10px] text-muted-foreground">Secure encrypted checkout</p>
                       </div>
                     </div>
 

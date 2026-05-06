@@ -39,17 +39,17 @@ const About = () => (
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed group-hover:text-foreground/70 transition-colors duration-300">
                 <p>
-                  In 2019, a group of Swiss cryptographers and privacy lawyers sat in a Zurich café, 
-                  frustrated by the same problem: existing VPNs were either slow, leaky, or secretly selling user data.
+                  A group of Swiss cryptographers and privacy lawyers set out to solve a stubborn problem:
+                  VPNs that felt slow, left privacy gaps, or quietly monetized user data.
                 </p>
                 <p>
-                  They sketched the blueprint for Xyber Veil on a napkin — a VPN built on zero-knowledge 
-                  architecture, where even the company itself cannot see user traffic. No logs by design, 
+                  They sketched the blueprint for Xyber Veil on a napkin — a VPN built on zero-knowledge
+                  architecture, where even the company itself cannot see user traffic. No logs by design,
                   not just by policy.
                 </p>
                 <p>
-                  Today, that napkin sketch protects over 2 million people in 190+ countries. 
-                  The mission hasn't changed: make surveillance irrelevant.
+                  That blueprint now protects a growing global community across dozens of countries.
+                  The mission stays the same: make surveillance irrelevant.
                 </p>
               </div>
             </div>

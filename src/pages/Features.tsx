@@ -15,24 +15,24 @@ import featureAutoconnect from "@/assets/feature-autoconnect.jpg";
 const features = [
   {
     image: featureEncryption,
-    title: "Military-Grade Encryption",
-    desc: "Your traffic is wrapped in 256-bit AES — the same cipher that guards classified government intel. Even if intercepted, your data reads as pure noise.",
-    stat: "256-bit",
-    statLabel: "AES Cipher",
+    title: "Encrypted Tunneling",
+    desc: "Your traffic moves through a hardened VPN tunnel with industry-standard protection. Even if someone snoops the wire, they don't get a readable picture of what you do.",
+    stat: "Full",
+    statLabel: "Tunnel Coverage",
   },
   {
     image: featureNologs,
     title: "Strict No-Logs Policy",
-    desc: "We architected our servers to physically prevent data retention. No connection timestamps, no browsing records, no IP trails. Independently audited annually.",
+    desc: "We architected our servers to physically prevent data retention. No connection timestamps, no browsing records, no IP trails. Independently audited.",
     stat: "0",
     statLabel: "Data Stored",
   },
   {
     image: featureGlobal,
-    title: "50+ Server Locations",
-    desc: "Hop between continents in milliseconds. Our bare-metal servers across 50+ countries ensure you always find a fast, nearby connection point.",
-    stat: "50+",
-    statLabel: "Countries",
+    title: "30+ Server Locations",
+    desc: "Hop between regions in milliseconds. Bare-metal servers in 30+ locations across 25+ countries mean a fast hop is always nearby.",
+    stat: "30+",
+    statLabel: "Locations",
   },
   {
     image: featureSpeed,
@@ -46,7 +46,7 @@ const features = [
     title: "Public Wi-Fi Armor",
     desc: "Coffee shops, airports, hotels — every open network is a threat vector. Our encrypted tunnel activates instantly, neutralizing man-in-the-middle attacks before they start.",
     stat: "100%",
-    statLabel: "Leak Protection",
+    statLabel: "Wi-Fi Shielded",
   },
   {
     image: featureDevices,

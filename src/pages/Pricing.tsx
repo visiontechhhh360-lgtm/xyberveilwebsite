@@ -8,32 +8,23 @@ import AnimatedSection from "@/components/AnimatedSection";
 const plans = [
   {
     id: "monthly",
-    name: "Starter",
-    price: "$12.99",
+    name: "Monthly",
+    price: "$4.99",
     period: "/mo",
     desc: "Try Xyber Veil risk-free. Cancel anytime.",
-    features: ["All 50+ server locations", "256-bit AES encryption", "No-logs guarantee", "5 simultaneous devices", "Email support"],
+    features: ["All 30+ server locations across 25+ countries", "Private VPN tunneling", "No-logs guarantee", "Anti-tracker tools", "5 simultaneous devices", "Email support"],
     popular: false,
   },
   {
     id: "yearly",
-    name: "Pro",
-    price: "$4.99",
-    period: "/mo",
-    billed: "Billed $59.88 annually",
-    savings: "62% OFF",
-    desc: "Our most popular plan for serious privacy.",
-    features: ["Everything in Starter", "10 simultaneous devices", "Priority 24/7 support", "Dedicated IP option", "Ad & tracker blocker"],
+    name: "Annual",
+    price: "$48.99",
+    period: "/yr",
+    billed: "Billed once per subscription term",
+    savings: "Best value",
+    desc: "Full privacy for less than paying month-by-month.",
+    features: ["Everything in Monthly", "10 simultaneous devices", "Priority 24/7 support", "Dedicated IP option", "Stronger anti-tracker defaults"],
     popular: true,
-  },
-  {
-    id: "lifetime",
-    name: "Lifetime",
-    price: "$149.99",
-    period: " once",
-    desc: "Pay once, stay protected forever.",
-    features: ["Everything in Pro", "Unlimited devices", "VIP concierge support", "Dedicated IP included", "Early access to beta features", "Priority server routing"],
-    popular: false,
   },
 ];
 
@@ -49,11 +40,11 @@ const Pricing = () => (
             <span className="text-primary glow-text">Total Freedom.</span>
           </h1>
           <p className="text-muted-foreground max-w-md mx-auto text-lg">
-            No hidden fees. No bandwidth caps. No data harvesting. Pick your plan.
+            No hidden fees. No bandwidth caps. No data harvesting. Two simple plans.
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
           {plans.map((plan, i) => (
             <AnimatedSection key={plan.id} delay={i * 0.1}>
               <motion.div
@@ -105,7 +96,7 @@ const Pricing = () => (
                       }`}
                       variant={plan.popular ? "default" : "outline"}
                     >
-                      {plan.popular ? "Get Pro Now" : "Choose Plan"}
+                      {plan.popular ? "Get Annual Plan" : "Choose Monthly"}
                       <ArrowRight className="ml-2 h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
                     </Button>
                   </Link>

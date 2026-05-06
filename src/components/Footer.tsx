@@ -13,7 +13,7 @@ const Footer = () => (
             </span>
           </Link>
           <p className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">
-            Your digital identity, protected by Swiss-engineered encryption.
+            Your digital identity, protected by Swiss-engineered privacy tooling.
           </p>
         </div>
         <div>
@@ -42,7 +42,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="border-t border-border/20 mt-10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-[11px] text-muted-foreground">© 2026 Xyber Veil. All rights reserved.</p>
+        <p className="text-[11px] text-muted-foreground">© Xyber Veil. All rights reserved.</p>
         
       </div>
     </div>

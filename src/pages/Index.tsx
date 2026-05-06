@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Shield, Zap, Globe, Eye, Lock, Star, ArrowRight, CheckCircle, Fingerprint, Gauge } from "lucide-react";
+import { Shield, Zap, Globe, Eye, Lock, Star, ArrowRight, CheckCircle, Ban, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -12,24 +12,24 @@ import pillarDns from "@/assets/pillar-dns.jpg";
 import pillarUptime from "@/assets/pillar-uptime.jpg";
 
 const highlights = [
-  { icon: Lock, title: "256-bit AES Encryption", desc: "Bank-level cipher that turns your data into unreadable noise.", img: pillarEncryption },
+  { icon: Lock, title: "Private Tunneling", desc: "Your connection is shielded on untrusted networks so your activity stays yours.", img: pillarEncryption },
   { icon: Eye, title: "Audited No-Logs Policy", desc: "Independently verified — we can't see what you do online.", img: pillarNologs },
-  { icon: Globe, title: "50+ Server Locations", desc: "Bare-metal infrastructure across every major continent.", img: pillarServers },
+  { icon: Globe, title: "30+ Server Locations", desc: "Bare-metal coverage across 25+ countries and every major continent.", img: pillarServers },
   { icon: Zap, title: "WireGuard® Protocol", desc: "Next-gen tunneling for speeds up to 10 Gbps.", img: pillarSpeed },
-  { icon: Fingerprint, title: "DNS Leak Protection", desc: "Every DNS query stays encrypted inside the tunnel.", img: pillarDns },
+  { icon: Ban, title: "Anti-Tracker Tools", desc: "Cut down cross-site trackers and fingerprinting noise while you browse.", img: pillarDns },
   { icon: Gauge, title: "99.99% Uptime", desc: "Redundant infrastructure that never sleeps.", img: pillarUptime },
 ];
 
 const testimonials = [
-  { name: "Alex R.", role: "Security Researcher", text: "I've stress-tested dozens of VPNs. Xyber Veil is the only one that survived my leak tests with zero exposure.", rating: 5 },
+  { name: "Alex R.", role: "Security Researcher", text: "I've stress-tested dozens of VPNs. Xyber Veil held up under hardening checks and kept my traffic where it belonged.", rating: 5 },
   { name: "Sarah M.", role: "Digital Nomad", text: "Connecting from Bali, Tokyo, Lisbon — always fast, always stable. This is what a VPN should feel like.", rating: 5 },
   { name: "James K.", role: "Software Engineer", text: "The WireGuard implementation is flawless. Sub-10ms overhead even on transcontinental routes. Impressive.", rating: 5 },
 ];
 
 const stats = [
   { value: "2M+", label: "Protected Users" },
-  { value: "50+", label: "Countries" },
-  { value: "10 Gbps", label: "Peak Speed" },
+  { value: "25+", label: "Countries" },
+  { value: "30+", label: "Server Locations" },
   { value: "0", label: "Logs Stored" },
 ];
 
@@ -56,7 +56,7 @@ const Index = () => (
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-12 leading-relaxed">
-            Military-grade encryption meets bleeding-edge speed. 
+            Private tunneling meets bleeding-edge speed.
             Reclaim your digital privacy in one click.
           </p>
 
@@ -143,7 +143,7 @@ const Index = () => (
     <section className="py-12 border-y border-border/20">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
-          {["No-Logs Certified", "256-bit AES", "30-Day Money Back", "24/7 Live Support", "50+ Countries"].map((b) => (
+          {["No-Logs Certified", "Anti-Tracker Tools", "30-Day Money Back", "24/7 Live Support", "25+ Countries", "30+ Locations"].map((b) => (
             <div key={b} className="flex items-center gap-2 text-muted-foreground">
               <CheckCircle className="h-4 w-4 text-primary" />
               <span className="text-sm font-medium">{b}</span>
