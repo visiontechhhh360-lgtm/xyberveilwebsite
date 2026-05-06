@@ -10,7 +10,7 @@ const Terms = () => (
            <div className="mx-auto max-w-3xl">
 
           <p className="mt-3 text-xs uppercase tracking-widest text-white/50">
-            Updated as needed — see the latest version on this page
+            Current as of 08 July 2025
           </p>
           <p className="mt-4 text-sm leading-relaxed text-white/70">
             Learn how we handle your personal data and protect your information.
