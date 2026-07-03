@@ -35,7 +35,7 @@ const Footer = () => (
         <div>
           <h4 className="font-display text-[10px] tracking-[0.3em] text-foreground/70 mb-4">LEGAL</h4>
           <div className="flex flex-col gap-2.5">
-            {[{ to: "/privacy-policy", l: "Privacy Policy" }, { to: "/terms", l: "Terms of Service" }].map(link => (
+            {[{ to: "/privacy-policy", l: "Privacy Policy" }, { to: "/terms-of-service", l: "Terms of Service" }].map(link => (
               <Link key={link.to} to={link.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.l}</Link>
             ))}
           </div>
