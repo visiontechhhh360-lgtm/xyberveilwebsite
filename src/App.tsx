@@ -11,7 +11,7 @@ import Download from "./pages/Download";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/privacy-policy";
-import Terms from "./pages/Terms";
+import Terms from "./pages/terms-of-service";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -33,7 +33,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
+          <Route path="/terms-of-service" element={<Terms />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
