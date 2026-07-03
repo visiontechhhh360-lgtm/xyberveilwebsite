@@ -10,7 +10,7 @@ import Checkout from "./pages/Checkout";
 import Download from "./pages/Download";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Privacy from "./pages/Privacy";
+import Privacy from "./pages/privacy-policy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
