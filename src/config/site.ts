@@ -176,8 +176,8 @@ export const NAV_LINKS = [
 ] as const
 
 export const LEGAL_LINKS = [
-  { label: 'Privacy Policy', href: 'PRIVACY_POLICY_LINK' },
-  { label: 'Terms of Service', href: 'TERMS_OF_SERVICE_LINK' },
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms & Conditions', href: '/terms-of-service' },
 ] as const
 
 /** Add real URLs here to show social links in the footer. Empty = hidden. */

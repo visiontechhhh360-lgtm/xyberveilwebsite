@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { NAV_LINKS } from '../config/site'
 import { IconArrow, IconClose, IconMenu } from '../components/Icons'
 import { Button, Logo } from '../components/ui'
-import { linkProps } from '../lib/links'
+import { homeHref, linkProps } from '../lib/links'
 import './Nav.css'
 
 /**
@@ -64,7 +64,7 @@ export function Nav() {
     <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
       <div className="nav__bar">
         <span className="nav__glass" aria-hidden="true" />
-        <a href="#top" className="nav__brand" aria-label="Xyberveil home">
+        <a href={homeHref('#top')} className="nav__brand" aria-label="Xyberveil home">
           <Logo size={32} />
         </a>
 
@@ -86,7 +86,7 @@ export function Nav() {
         </nav>
 
         <div className="nav__actions">
-          <Button href="#downloads" size="md" className="nav__cta">Download</Button>
+          <Button href={homeHref('#downloads')} size="md" className="nav__cta">Download</Button>
           <button
             ref={toggleRef}
             type="button"
@@ -121,7 +121,7 @@ export function Nav() {
               </li>
             ))}
           </ul>
-          <Button href="#downloads" size="lg" onClick={() => setOpen(false)} className="nav__sheet-cta">Download Xyberveil</Button>
+          <Button href={homeHref('#downloads')} size="lg" onClick={() => setOpen(false)} className="nav__sheet-cta">Download Xyberveil</Button>
         </div>
       </div>
     </header>

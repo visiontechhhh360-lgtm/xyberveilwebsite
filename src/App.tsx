@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { Seam } from './components/ui'
 import { ScrollTrigger } from './lib/gsap'
+import { currentRoute } from './lib/links'
+import Privacy from './pages/Privacy'
+import Terms from './pages/Terms'
 import { AntiTracker } from './sections/AntiTracker'
 import { Control } from './sections/Control'
 import { Downloads } from './sections/Downloads'
@@ -22,14 +25,26 @@ export default function App() {
   useEffect(() => {
     const refresh = () => ScrollTrigger.refresh()
     document.fonts?.ready.then(refresh)
+    // Arriving from another route with a hash (/#faq): the browser jumps before
+    // React renders, so jump again once layout has settled
+    const target = window.location.hash && document.querySelector(window.location.hash)
+    if (target) document.fonts?.ready.then(() => requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant' })))
     window.addEventListener('load', refresh)
     return () => window.removeEventListener('load', refresh)
   }, [])
+
+  const route = currentRoute()
+  const LegalDoc = route === '/privacy-policy' ? Privacy : route === '/terms-of-service' ? Terms : null
 
   return (
     <>
       <a href="#main" className="skip-link">Skip to content</a>
       <Nav />
+      {LegalDoc ? (
+        <main id="main">
+          <LegalDoc />
+        </main>
+      ) : (
       <main id="main">
         <Hero />
         <Statement />
@@ -49,6 +64,7 @@ export default function App() {
         <FAQ />
         <FinalCTA />
       </main>
+      )}
       <Footer />
       <div className="grain" aria-hidden="true" />
     </>
