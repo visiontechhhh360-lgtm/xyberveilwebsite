@@ -1,0 +1,69 @@
+.ctrl__bg {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(0, 49, 63, 0.35) 0%, transparent 45%, transparent 55%, rgba(25, 23, 88, 0.35) 100%),
+    radial-gradient(40% 50% at 25% 50%, rgba(56, 201, 214, 0.12), transparent 70%);
+}
+.ctrl__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px);
+}
+.ctrl__sticky {
+  position: sticky;
+  top: calc(50vh - 240px);
+  height: 480px;
+  display: grid; place-items: center;
+  perspective: 1200px;
+}
+.ctrl__rings { position: absolute; inset: 0; display: grid; place-items: center; }
+.ctrl__rings span {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  animation: ring-breathe 6s ease-in-out infinite;
+}
+.ctrl__rings span:nth-child(1) { width: 300px; height: 300px; border-color: rgba(56, 201, 214, 0.18); }
+.ctrl__rings span:nth-child(2) { width: 420px; height: 420px; animation-delay: -2s; }
+.ctrl__rings span:nth-child(3) { width: 540px; height: 540px; border-color: rgba(111, 104, 242, 0.12); animation-delay: -4s; }
+@keyframes ring-breathe { 50% { transform: scale(1.04); opacity: 0.5; } }
+
+.ctrl__shield {
+  position: relative;
+  width: min(360px, 80%);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 60px rgba(56, 201, 214, 0.18));
+}
+.ctrl__shield-inner {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  /* clip the sweep to the shield silhouette */
+  -webkit-mask: url('../assets/xyberveil-logo.webp') center / contain no-repeat;
+  mask: url('../assets/xyberveil-logo.webp') center / contain no-repeat;
+}
+.ctrl__shield img { width: 100%; height: 100%; }
+.ctrl__sweep {
+  position: absolute; top: -10%; left: -60%;
+  width: 40%; height: 120%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-18deg);
+  mix-blend-mode: overlay;
+}
+
+.ctrl__copy { display: grid; gap: clamp(2.5rem, 2rem + 2vw, 4rem); align-content: start; }
+.ctrl__points { display: grid; gap: clamp(2.5rem, 2rem + 3vw, 5rem); counter-reset: pt; }
+.ctrl__point { display: grid; gap: 14px; padding-top: 24px; border-top: 1px solid var(--color-border); }
+.ctrl__k { display: inline-flex; align-items: center; gap: 8px; font-size: var(--fs-label); letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-primary); }
+.ctrl__point h3 { font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2.4rem); letter-spacing: -0.035em; line-height: 1.1; font-weight: 550; }
+.ctrl__point p { max-width: 30rem; }
+
+@media (max-width: 900px) {
+  .ctrl__layout { grid-template-columns: 1fr; }
+  .ctrl__sticky { position: relative; top: 0; height: 340px; }
+  .ctrl__shield { width: 240px; }
+  .ctrl__rings span:nth-child(1) { width: 220px; height: 220px; }
+  .ctrl__rings span:nth-child(2) { width: 300px; height: 300px; }
+  .ctrl__rings span:nth-child(3) { width: 380px; height: 380px; }
+  .ctrl__point { opacity: 1 !important; }
+}

@@ -1,0 +1,164 @@
+/*
+ * Header architecture
+ * - .nav is position:fixed with a constant geometry (no transforms, no
+ *   height/padding/max-width changes between states).
+ * - The glass look lives on .nav__glass, an absolutely positioned layer whose
+ *   OPACITY is the only thing that transitions. Nothing else moves.
+ * - z-index sits above all page layers (see --z-* tokens).
+ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  padding: var(--nav-offset) var(--gutter) 0;
+  pointer-events: none; /* only the bar itself is interactive */
+}
+
+.nav__bar {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: var(--container);
+  height: var(--nav-bar-h);
+  margin-inline: auto;
+  padding: 0 10px 0 16px;
+  pointer-events: auto;
+}
+
+.nav__glass {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(14, 22, 34, 0.72), rgba(8, 14, 24, 0.62));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 12px 32px -12px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 360ms var(--ease-out);
+  pointer-events: none;
+}
+.nav.is-scrolled .nav__glass,
+.nav.is-open .nav__glass { opacity: 1; }
+
+.nav__brand { display: inline-flex; border-radius: 10px; flex: none; }
+
+.nav__links { position: relative; display: flex; gap: 2px; }
+.nav__links a {
+  position: relative; z-index: 1;
+  display: block;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: var(--color-text-soft);
+  border-radius: 10px;
+  transition: color var(--dur-fast);
+}
+.nav__links a:hover, .nav__links a:focus-visible { color: var(--color-text); }
+.nav__pill {
+  position: absolute; top: 0; left: 0; height: 100%;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 400ms var(--ease-out), width 400ms var(--ease-out), opacity 200ms;
+  pointer-events: none;
+}
+
+.nav__actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.nav__cta { height: 40px; padding: 0 20px; }
+/* keep the header CTA calm: no magnetic drift inside a fixed bar */
+.nav__cta.btn { transform: none !important; }
+
+.nav__toggle {
+  position: relative;
+  display: none;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border);
+  -webkit-tap-highlight-color: transparent;
+}
+.nav__toggle-icon {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  transition: opacity 250ms var(--ease-out), transform 350ms var(--ease-out);
+}
+.nav__toggle-icon--close { opacity: 0; transform: rotate(-45deg) scale(0.8); }
+.nav.is-open .nav__toggle-icon--menu { opacity: 0; transform: rotate(45deg) scale(0.8); }
+.nav.is-open .nav__toggle-icon--close { opacity: 1; transform: none; }
+
+/* ---------- Mobile menu (always mounted so it can animate out) ---------- */
+.nav__sheet {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  padding: calc(var(--nav-offset) + var(--nav-bar-h) + 10px) var(--gutter) 24px;
+  background: rgba(2, 6, 12, 0.6);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 320ms var(--ease-out), visibility 0s linear 320ms;
+}
+.nav__sheet[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 320ms var(--ease-out), visibility 0s;
+}
+.nav__sheet-panel {
+  display: grid;
+  gap: 20px;
+  padding: 10px 18px 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(16, 26, 40, 0.82), rgba(8, 14, 24, 0.86));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  transform: translateY(-10px) scale(0.98);
+  transform-origin: 50% 0;
+  transition: transform 420ms var(--ease-out);
+}
+.nav__sheet[data-open='true'] .nav__sheet-panel { transform: none; }
+.nav__sheet ul { display: grid; }
+.nav__sheet li {
+  border-bottom: 1px solid var(--color-border);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 300ms var(--ease-out), transform 400ms var(--ease-out);
+}
+.nav__sheet[data-open='true'] li { opacity: 1; transform: none; }
+.nav__sheet[data-open='true'] li:nth-child(2) { transition-delay: 40ms; }
+.nav__sheet[data-open='true'] li:nth-child(3) { transition-delay: 80ms; }
+.nav__sheet[data-open='true'] li:nth-child(4) { transition-delay: 120ms; }
+.nav__sheet[data-open='true'] li:nth-child(5) { transition-delay: 160ms; }
+.nav__sheet li a {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 56px; padding: 0 4px;
+  font-size: 1.25rem; font-weight: 550; letter-spacing: -0.02em;
+}
+.nav__sheet li a svg { color: var(--color-muted); }
+.nav__sheet-cta { width: 100%; }
+
+@media (max-width: 900px) {
+  .nav__primary { display: none; }
+  .nav__toggle { display: block; }
+  .nav__bar { padding: 0 8px 0 12px; }
+  .nav__glass { border-radius: 18px; }
+}
+@media (min-width: 901px) {
+  .nav__sheet { display: none; }
+}
+@media (max-width: 480px) {
+  .nav__cta { display: none; }
+}

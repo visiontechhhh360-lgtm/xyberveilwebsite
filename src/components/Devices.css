@@ -1,0 +1,453 @@
+/* =====================================================================
+   Device system — one light direction (key from top-left), one shadow
+   model (contact / ambient / atmospheric), one glass treatment.
+   ===================================================================== */
+
+.laptop, .monitor, .phone { position: relative; isolation: isolate; }
+
+/* Glass glare shared by all screens */
+.glare {
+  position: absolute; inset: 0;
+  background: var(--screen-glare);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Real screenshot */
+.shot { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+
+/* Uniformly scaled design-space screen */
+.scaled { position: relative; width: 100%; overflow: hidden; --s: 0; }
+.scaled__inner { position: absolute; top: 0; left: 0; transform: scale(var(--s)); transform-origin: 0 0; }
+
+/* ---------- Ground shadow (3 layers) ---------- */
+.dev-ground {
+  position: absolute; left: 50%; top: 100%;
+  width: 100%; height: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: -1;
+}
+.dev-ground i { position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); border-radius: 50%; }
+.dev-ground__contact {
+  width: 94%; aspect-ratio: 70 / 1;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.55) 55%, transparent);
+}
+.dev-ground__ambient {
+  width: 108%; aspect-ratio: 16 / 1;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.18) 60%, transparent);
+}
+.dev-ground__atmos {
+  width: 150%; aspect-ratio: 6 / 1;
+  background: radial-gradient(closest-side, rgba(0, 18, 34, 0.5), transparent);
+}
+
+/* ---------- Laptop ---------- */
+.laptop { width: 100%; perspective: 2600px; }
+.laptop__lid {
+  position: relative;
+  margin: 0 3.2%;
+  padding: 0.5%;
+  border-radius: 2.6% 2.6% 0.8% 0.8% / 4.1% 4.1% 1.3% 1.3%;
+  /* space-grey aluminium rim catching the key light on its top edge */
+  background: linear-gradient(180deg, #a1a7b1 0%, #5b606a 3%, #30333a 30%, #202227 100%);
+  box-shadow: var(--shadow-device), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.laptop__bezel {
+  position: relative;
+  padding: 2.6% 2% 3.1%;
+  border-radius: 2.2% 2.2% 0.5% 0.5% / 3.5% 3.5% 0.8% 0.8%;
+  background: #030406;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+}
+.laptop__screen { position: relative; border-radius: 0.4% / 0.64%; overflow: hidden; background: #000; }
+.laptop__notch {
+  position: absolute; top: 0; left: 50%;
+  width: 9.5%; aspect-ratio: 9 / 1;
+  transform: translateX(-50%);
+  background: #030406;
+  border-radius: 0 0 6px 6px;
+  z-index: 6;
+}
+.laptop__notch::after, .laptop__cam::after {
+  content: '';
+  position: absolute; left: 50%; top: 50%;
+  width: 5px; height: 5px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2c3a52, #0a0d14 70%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+.laptop__cam { position: absolute; top: 0; left: 50%; width: 3%; aspect-ratio: 4 / 1; transform: translateX(-50%); }
+.laptop__cam::after { top: 55%; }
+.laptop__base {
+  position: relative; z-index: 1;
+  width: 100%;
+  aspect-ratio: 100 / 3.4;
+  /* front edge of the aluminium deck: flat top, rounded tapered underside */
+  border-radius: 0.4% 0.4% 4.5% 4.5% / 8% 8% 92% 92%;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.35) 0%, transparent 6%, transparent 94%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(180deg, #c9cdd4 0%, #9aa0aa 16%, #6c727d 46%, #454a53 76%, #2b2e35 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.55),
+    0 1px 1px rgba(0, 0, 0, 0.7),
+    0 3px 6px -2px rgba(0, 0, 0, 0.6);
+}
+.laptop__base::before {
+  /* hinge shadow where lid meets base */
+  content: '';
+  position: absolute; top: 0; left: 3.2%; right: 3.2%;
+  height: 26%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent);
+  border-radius: 0 0 40% 40%;
+}
+.laptop__lip {
+  position: absolute; top: 0; left: 50%;
+  width: 13%; height: 36%;
+  transform: translateX(-50%);
+  border-radius: 0 0 12px 12px / 0 0 100% 100%;
+  background: linear-gradient(180deg, #3f434b, #858b96);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Monitor ---------- */
+.monitor { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.monitor__panel {
+  position: relative; z-index: 2;
+  width: 100%;
+  padding: 0.45%;
+  border-radius: 1.5% / 2.7%;
+  background: linear-gradient(180deg, #d2d6dd 0%, #979da8 45%, #6f7580 100%);
+  box-shadow: var(--shadow-device), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.monitor__bezel { padding: 1.5%; background: #030406; border-radius: 1.2% / 2.2%; }
+.monitor__screen { position: relative; overflow: hidden; border-radius: 0.3% / 0.5%; background: #000; }
+.monitor__stand { position: relative; z-index: 1; width: 26%; display: flex; flex-direction: column; align-items: center; margin-top: -1px; }
+.monitor__neck {
+  width: 34%;
+  aspect-ratio: 1 / 1.35;
+  background: linear-gradient(90deg, #5f6570 0%, #b9bec7 22%, #e4e7ec 50%, #b3b8c2 78%, #5c626d 100%);
+  clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+  box-shadow: inset 0 12px 16px -8px rgba(0, 0, 0, 0.6);
+}
+.monitor__neck::after { content: ''; display: block; height: 18%; background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent); }
+.monitor__foot {
+  width: 100%;
+  aspect-ratio: 14 / 1;
+  border-radius: 3px 3px 14px 14px / 3px 3px 70% 70%;
+  background: linear-gradient(180deg, #f0f2f5 0%, #b4b9c3 35%, #7c828d 75%, #4c515a 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+.monitor > .dev-ground { width: 36%; }
+
+/* ---------- Phone ---------- */
+.phone { width: 100%; }
+.phone__frame {
+  position: relative;
+  padding: 1.25%;
+  border-radius: 16.2% / 7.5%;
+  background: linear-gradient(145deg, #dde0e6 0%, #7a808c 14%, #3a3e47 38%, #2a2d34 58%, #5a606b 82%, #c6cbd3 100%);
+  box-shadow: var(--shadow-device), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+.phone__screen {
+  position: relative;
+  padding: 2.9%;
+  border-radius: 15% / 6.9%;
+  background: #030406;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+.phone__screen .shot,
+.phone__screen > .scaled { border-radius: 12.8% / 5.9%; overflow: hidden; }
+.phone__screen .glare { inset: 2.9%; border-radius: 12.8% / 5.9%; }
+.phone__island {
+  position: absolute;
+  top: 3.9%; left: 50%;
+  width: 30%; aspect-ratio: 3.4 / 1;
+  transform: translateX(-50%);
+  border-radius: 99px;
+  background: #000;
+  z-index: 6;
+}
+.phone__punch {
+  position: absolute;
+  top: 4.3%; left: 50%;
+  width: 5.4%; aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #1b2433, #000 65%);
+  z-index: 6;
+}
+.phone__btn {
+  position: absolute;
+  width: 1.3%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #4b505a, #a9aeb8 60%, #6b717c);
+  z-index: -1;
+}
+.phone__btn--a { left: -0.9%; top: 16%; height: 4.2%; }
+.phone__btn--b { left: -0.9%; top: 23%; height: 7.6%; }
+.phone__btn--c { right: -0.9%; top: 24%; height: 11%; }
+
+/* Android: flatter corners, darker frame, buttons on the right */
+.phone--android .phone__frame {
+  border-radius: 11% / 5.2%;
+  background: linear-gradient(145deg, #4a4f59 0%, #22252b 30%, #17191e 70%, #3d424b 100%);
+}
+.phone--android .phone__screen { border-radius: 10% / 4.7%; }
+.phone--android .phone__screen .shot,
+.phone--android .phone__screen .glare { border-radius: 8.4% / 3.9%; }
+.phone--android .phone__btn--a { left: auto; right: -0.9%; top: 20%; height: 9%; }
+.phone--android .phone__btn--b { left: auto; right: -0.9%; top: 32%; height: 5%; }
+.phone--android .phone__btn--c { display: none; }
+.phone__android-bar {
+  position: absolute;
+  top: 2.9%; left: 2.9%; right: 2.9%;
+  height: 5.6%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 7%;
+  border-radius: 8.4% 8.4% 0 0 / 60% 60% 0 0;
+  background: rgb(1, 49, 64);
+  color: #fff;
+  font-size: 3.6cqw;
+  font-weight: 500;
+  z-index: 4;
+}
+.phone--android .phone__screen { container-type: inline-size; }
+.phone__android-icons { display: inline-flex; align-items: center; gap: 1.2cqw; }
+.phone__android-icons i { width: 3.2cqw; height: 3.2cqw; border-radius: 1px; background: linear-gradient(45deg, transparent 49%, #fff 50%); }
+.phone__android-icons i:nth-child(2) { border-radius: 50% 50% 0 0; background: #fff; clip-path: polygon(50% 100%, 0 0, 100% 0); }
+.phone__android-icons b { width: 2.2cqw; height: 3.6cqw; border-radius: 1.5px; background: #fff; }
+
+/* =====================================================================
+   Desktop environment (design px — rendered inside <ScaledScreen/>)
+   ===================================================================== */
+.wall {
+  position: relative;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: #fff;
+  background:
+    radial-gradient(60% 55% at 12% 10%, rgba(20, 150, 175, 0.75), transparent 62%),
+    radial-gradient(65% 65% at 95% 100%, rgba(80, 70, 210, 0.75), transparent 62%),
+    radial-gradient(45% 45% at 70% 25%, rgba(0, 95, 120, 0.5), transparent 70%),
+    linear-gradient(160deg, #06283a 0%, #0b0f2e 100%);
+}
+.wall__light {
+  position: absolute; left: -10%; top: 30%;
+  width: 120%; height: 40%;
+  background: linear-gradient(100deg, transparent 20%, rgba(90, 200, 220, 0.12) 45%, rgba(120, 110, 240, 0.12) 60%, transparent 80%);
+  transform: rotate(-12deg);
+  filter: blur(30px);
+}
+.wall__menubar, .wall__topbar {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+  font-size: 13px; font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(8, 14, 24, 0.4);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  z-index: 2;
+}
+.wall__topbar { height: 32px; background: rgba(0, 0, 0, 0.82); font-size: 13px; }
+.wall__menubar-l { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.wall__menubar-r { display: inline-flex; align-items: center; gap: 14px; }
+.wall__menubar-r i { width: 15px; height: 11px; border-radius: 2px; border: 1.5px solid rgba(255, 255, 255, 0.85); }
+.wall__stage { position: absolute; inset: 28px 0 0; display: grid; place-items: center; }
+.wall--windows .wall__stage { inset: 0 0 48px; }
+.wall--linux .wall__stage { inset: 32px 0 0; }
+.wall__taskbar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 48px;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: rgba(18, 22, 32, 0.78);
+  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  z-index: 2;
+}
+.wall__taskbar i { width: 36px; height: 36px; border-radius: 6px; background: rgba(255, 255, 255, 0.1); }
+.wall__taskbar i:first-child {
+  /* start button: four panes */
+  background:
+    linear-gradient(#5aa7f5, #5aa7f5) 9px 9px / 8px 8px no-repeat,
+    linear-gradient(#5aa7f5, #5aa7f5) 19px 9px / 8px 8px no-repeat,
+    linear-gradient(#5aa7f5, #5aa7f5) 9px 19px / 8px 8px no-repeat,
+    linear-gradient(#5aa7f5, #5aa7f5) 19px 19px / 8px 8px no-repeat;
+}
+.wall__taskbar b {
+  position: relative;
+  display: grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.wall__taskbar b::after { content: ''; position: absolute; bottom: 2px; width: 16px; height: 3px; border-radius: 3px; background: var(--app-accent); }
+.wall__taskbar-clock { position: absolute; right: 18px; font-size: 12px; color: rgba(255, 255, 255, 0.85); }
+
+/* ---------- Desktop app window (real frameless capture, 1200×672) ---------- */
+.appwin {
+  position: relative;
+  width: 1200px;
+  aspect-ratio: 1200 / 672;
+  border-radius: 12.5px;
+}
+.appwin .shot {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out, ease);
+}
+.appwin .shot.is-on { opacity: 1; }
+/* macOS: large, soft window shadow; slightly smaller to clear menu bar + dock */
+.appwin--mac {
+  width: 1160px;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.6),
+    0 22px 70px 4px rgba(0, 0, 0, 0.56),
+    0 8px 20px rgba(0, 0, 0, 0.3);
+}
+/* Windows 11: tighter, lighter shadow */
+.appwin--windows, .appwin--linux {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.45),
+    0 16px 40px rgba(0, 0, 0, 0.48),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.wall__dock {
+  position: absolute; left: 50%; bottom: 8px;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 10px;
+  height: 66px; padding: 0 12px;
+  border-radius: 22px;
+  background: rgba(40, 48, 62, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+.wall__dock i, .wall__dock b {
+  position: relative;
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.25), 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+/* generic, unbranded app tiles */
+.wall__dock i:nth-child(1) { background: linear-gradient(180deg, #7dd3fc, #2563eb); }
+.wall__dock i:nth-child(2) { background: linear-gradient(180deg, #fef3c7, #f59e0b); }
+.wall__dock i:nth-child(3) { background: linear-gradient(180deg, #bbf7d0, #16a34a); }
+.wall__dock i:nth-child(4) { background: linear-gradient(180deg, #fbcfe8, #db2777); }
+.wall__dock i:nth-child(5) { background: linear-gradient(180deg, #e5e7eb, #6b7280); }
+.wall__dock i:nth-child(7) { background: linear-gradient(180deg, #ddd6fe, #7c3aed); }
+.wall__dock i:nth-child(8) { background: linear-gradient(180deg, #cbd5e1, #334155); }
+.wall__dock b { display: grid; place-items: center; background: linear-gradient(160deg, #0a3542, #00171f); }
+.wall__dock b::after {
+  content: '';
+  position: absolute; left: 50%; bottom: -8px;
+  width: 4px; height: 4px; border-radius: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.85);
+}
+.wall--mac .wall__stage { inset: 28px 0 82px; }
+.win__lights { display: inline-flex; gap: 8px; }
+.win__lights i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.25); }
+.win__lights i:nth-child(2) { background: #febc2e; }
+.win__lights i:nth-child(3) { background: #28c840; }
+.win__ctrl { margin-left: auto; display: inline-flex; align-items: center; }
+.win__ctrl--win { margin-right: -12px; height: 100%; }
+.win__ctrl--win i { position: relative; width: 44px; height: 100%; }
+.win__ctrl--win i::before { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.win__ctrl--win i:nth-child(1)::before { width: 10px; height: 1px; background: rgba(255, 255, 255, 0.8); }
+.win__ctrl--win i:nth-child(2)::before { width: 9px; height: 9px; border: 1px solid rgba(255, 255, 255, 0.8); }
+.win__ctrl--win i:nth-child(3)::before { content: '×'; font-size: 17px; line-height: 1; color: rgba(255, 255, 255, 0.85); font-style: normal; }
+
+/* ---------- Browser (Chrome-style dark UI, light page) ---------- */
+.browser {
+  display: flex; flex-direction: column;
+  width: 100%; height: 100%;
+  background: #202124;
+  color: #e8eaed;
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+.browser__tabs { display: flex; align-items: flex-end; gap: 6px; height: 42px; padding: 0 10px; }
+.browser__tabs .win__lights { align-self: center; margin: 0 10px 0 4px; }
+.browser__tab {
+  display: flex; align-items: center; gap: 8px;
+  width: 240px; height: 34px; padding: 0 12px;
+  border-radius: 10px 10px 0 0;
+  background: #35363a;
+}
+.browser__tab span { flex: 1; }
+.browser__tab b { font-weight: 400; color: #9aa0a6; font-size: 15px; }
+.browser__favicon { width: 16px; height: 16px; border-radius: 50%; background: conic-gradient(#8ab4f8 0 33%, #81c995 0 66%, #fdd663 0); }
+.browser__newtab { align-self: center; color: #9aa0a6; font-size: 20px; padding: 0 8px; }
+.browser__tabs .win__ctrl--win { align-self: stretch; margin-right: -10px; }
+.browser__toolbar { display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 10px; background: #35363a; }
+.browser__nav { display: inline-flex; gap: 4px; }
+.browser__nav i { width: 28px; height: 28px; display: grid; place-items: center; font-style: normal; color: #9aa0a6; font-size: 17px; }
+.browser__nav i:nth-child(1)::before { content: '←'; }
+.browser__nav i:nth-child(2)::before { content: '→'; opacity: 0.45; }
+.browser__nav i:nth-child(3)::before { content: '↻'; }
+.browser__omnibox {
+  flex: 1;
+  display: flex; align-items: center; gap: 10px;
+  height: 32px; padding: 0 14px;
+  border-radius: 16px;
+  background: #202124;
+  color: #9aa0a6;
+}
+.browser__omnibox i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #9aa0a6; }
+.browser__exts { display: inline-flex; align-items: center; gap: 6px; }
+.browser__ext { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; }
+.browser__ext.is-open { background: rgba(138, 180, 248, 0.2); }
+.browser__puzzle { width: 16px; height: 16px; margin: 0 6px; border: 1.8px solid #9aa0a6; border-radius: 3px; }
+.browser__avatar { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #5c6bc0, #26a69a); }
+.browser__page { position: relative; flex: 1; overflow: hidden; background: #eef1f5; }
+.browser__popup {
+  /* Chrome caps extension popups at 600px tall — 330px wide keeps the real
+     screen's aspect ratio within that limit */
+  position: absolute; top: 6px; right: 56px;
+  width: 330px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--app-bg);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Generic website (dark mode) */
+.page { position: absolute; inset: 0; background: #111418; color: #e7eaee; font-family: var(--font-sans); overflow: hidden; }
+.page__nav {
+  display: flex; align-items: center; gap: 40px;
+  height: 68px; padding: 0 64px;
+  border-bottom: 1px solid #22262c;
+  font-size: 15px;
+}
+.page__brand { display: inline-flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
+.page__brand i { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg, #f59e0b, #ef4444); }
+.page__nav nav { display: flex; gap: 28px; color: #9aa3ad; margin-right: auto; }
+.page__btn { padding: 9px 18px; border-radius: 999px; background: #e7eaee; color: #111418; font-weight: 600; font-size: 14px; }
+.page__hero { display: grid; grid-template-columns: 1.55fr 1fr; gap: 40px; padding: 36px 64px; }
+.page__lead small, .page__side small { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #f59e0b; }
+.page__lead h3 { margin: 10px 0 10px; font-size: 38px; line-height: 1.1; letter-spacing: -0.02em; }
+.page__lead p { font-size: 17px; line-height: 1.5; color: #a4acb6; max-width: 90%; }
+.page__img { border-radius: 12px; background-size: cover; }
+.page__img--a {
+  height: 380px; margin-bottom: 20px;
+  /* abstract "photo": dusk sky over water */
+  background:
+    radial-gradient(40% 30% at 70% 38%, rgba(255, 214, 150, 0.9), transparent 70%),
+    linear-gradient(180deg, #2b3a67 0%, #b56b6b 45%, #e9a978 55%, #20476a 56%, #0f2c44 100%);
+}
+.page__side { display: grid; gap: 22px; align-content: start; }
+.page__side article { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: center; }
+.page__side h4 { margin-top: 6px; font-size: 19px; line-height: 1.25; font-weight: 600; }
+.page__img--b { height: 104px; background: radial-gradient(60% 60% at 30% 30%, #e8dcc4, #8f7a5c 70%); }
+.page__img--c { height: 104px; background: linear-gradient(135deg, #3d5a4a, #9fb89a 60%, #d8d2bd); }
+.page__img--d { height: 104px; background: radial-gradient(30% 30% at 70% 40%, #ffd98a, transparent 70%), linear-gradient(180deg, #0d1b33, #1f3a5f); }

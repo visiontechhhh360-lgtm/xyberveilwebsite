@@ -1,0 +1,98 @@
+.loc { overflow: hidden; }
+.loc__bg {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(45% 45% at 50% 60%, rgba(0, 92, 112, 0.28), transparent 70%),
+    radial-gradient(30% 30% at 80% 30%, rgba(111, 104, 242, 0.14), transparent 70%);
+}
+.loc__bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(60% 55% at 50% 60%, #000, transparent 75%);
+  mask-image: radial-gradient(60% 55% at 50% 60%, #000, transparent 75%);
+}
+
+.loc__field { position: relative; margin-top: clamp(2rem, 1rem + 3vw, 4rem); }
+.loc__big {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(9rem, 4rem + 22vw, 24rem);
+  font-weight: 700;
+  letter-spacing: -0.08em;
+  line-height: 1;
+  opacity: 0.07;
+  pointer-events: none;
+  white-space: nowrap;
+}
+/* The network lies on a gently tilted plane: depth without a spinning globe */
+.loc__plane {
+  position: relative;
+  transform: perspective(1600px) rotateX(34deg) scale(1.06);
+  transform-origin: 50% 60%;
+  margin-block: -3% -1%;
+}
+.loc__plane::before {
+  /* atmospheric haze pooled on the plane */
+  content: '';
+  position: absolute; inset: 8% 6%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 110, 135, 0.22), rgba(40, 36, 140, 0.12) 60%, transparent);
+  filter: blur(20px);
+}
+.loc__plane::after {
+  /* horizon light at the far edge of the plane */
+  content: '';
+  position: absolute; left: 10%; right: 10%; top: 2%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(190, 225, 240, 0.25), transparent);
+}
+.loc__svg { position: relative; width: 100%; height: auto; overflow: visible; }
+.loc__particles circle { fill: #bff5fa; }
+
+.loc__rings ellipse { fill: none; stroke: rgba(255, 255, 255, 0.05); stroke-dasharray: 2 8; }
+.loc__mesh line { stroke: rgba(120, 190, 220, 0.14); stroke-width: 1; }
+
+.loc__arc { fill: none; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 6 10; animation: arc-draw 900ms var(--ease-out) both, arc-flow 1.2s linear infinite; }
+.loc__arc-glow { fill: none; stroke: rgba(56, 201, 214, 0.35); stroke-width: 8; filter: blur(6px); animation: fade-in 900ms var(--ease-out) both; }
+@keyframes arc-draw { from { opacity: 0; } to { opacity: 1; } }
+@keyframes arc-flow { to { stroke-dashoffset: -32; } }
+@keyframes fade-in { from { opacity: 0; } }
+
+.loc__node { cursor: pointer; outline: none; }
+.loc__hit { fill: transparent; }
+.loc__halo { fill: rgba(56, 201, 214, 0.08); stroke: rgba(56, 201, 214, 0.2); transition: all var(--dur) var(--ease-out); transform-box: fill-box; transform-origin: center; }
+.loc__dot { fill: #b8f2f6; transition: fill var(--dur); }
+.loc__node:nth-of-type(3n) .loc__dot { fill: #c2beff; }
+.loc__node:hover .loc__halo, .loc__node:focus-visible .loc__halo { stroke: rgba(95, 224, 232, 0.7); fill: rgba(56, 201, 214, 0.16); }
+.loc__node:focus-visible .loc__halo { stroke: #fff; stroke-width: 2; }
+.loc__node.is-active .loc__halo { fill: rgba(56, 201, 214, 0.22); stroke: var(--color-primary-strong); animation: node-ping 1.8s var(--ease-out) infinite; }
+.loc__node.is-active .loc__dot { fill: #fff; }
+@keyframes node-ping { 0% { transform: scale(0.8); } 60% { transform: scale(1.5); opacity: 0.4; } 100% { transform: scale(1.7); opacity: 0; } }
+
+.loc__hub-ring { fill: rgba(8, 14, 26, 0.9); stroke: rgba(255, 255, 255, 0.35); }
+.loc__hub-core { fill: #fff; filter: drop-shadow(0 0 8px #5fe0e8); }
+
+.loc__readout {
+  position: absolute; left: 50%; bottom: 2%;
+  transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 10px 18px;
+  border-radius: 14px;
+  white-space: nowrap;
+}
+.loc__readout-k { font-size: var(--fs-label); letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); }
+.loc__readout-v { display: inline-flex; align-items: center; gap: 10px; font-size: 0.92rem; color: var(--color-text-soft); }
+.loc__readout-v strong { color: var(--color-text); font-weight: 600; }
+.loc__readout-arrow { width: 36px; height: 1px; background: var(--gradient-brand); position: relative; }
+.loc__readout-arrow::after { content: ''; position: absolute; right: -1px; top: -3px; border: 3.5px solid transparent; border-left: 5px solid var(--color-secondary-strong); }
+
+.loc__note { margin-top: 28px; text-align: center; font-size: 0.72rem; color: var(--color-faint); letter-spacing: 0.04em; }
+
+@media (max-width: 700px) {
+  .loc__field { margin-inline: calc(var(--gutter) * -0.6); }
+  .loc__plane { transform: perspective(900px) rotateX(24deg) scale(1.2); margin-block: 4%; }
+  .loc__readout { bottom: -8%; }
+  .loc__note { margin-top: 56px; }
+}

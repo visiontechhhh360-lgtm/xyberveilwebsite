@@ -1,0 +1,103 @@
+.proto__bg {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(45% 45% at 75% 55%, rgba(60, 52, 190, 0.2), transparent 70%),
+    radial-gradient(30% 30% at 15% 80%, rgba(0, 92, 112, 0.2), transparent 70%);
+}
+.proto__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+}
+
+/* Device */
+.proto__device { position: relative; width: min(100%, 300px); margin-inline: auto; }
+.proto__device::before {
+  /* soft key light behind the phone */
+  content: '';
+  position: absolute; inset: 8% -30% 20%;
+  background: radial-gradient(closest-side, rgba(0, 188, 218, 0.14), transparent);
+  filter: blur(20px);
+  z-index: -1;
+}
+.proto__note { margin-top: 44px; text-align: center; font-size: 0.7rem; color: var(--color-faint); letter-spacing: 0.04em; }
+
+/* Stage */
+.proto__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0;
+  padding: 60px 0 80px;
+}
+.proto__endpoint { display: grid; justify-items: center; gap: 12px; position: relative; z-index: 2; }
+.proto__endpoint small { font-size: 0.7rem; color: var(--color-muted); letter-spacing: 0.06em; }
+.proto__endpoint-core {
+  display: grid; place-items: center;
+  width: 76px; height: 76px; border-radius: 24px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--color-border-strong);
+  box-shadow: var(--rim-light), var(--shadow-window);
+}
+.proto__endpoint-core--net { color: var(--color-secondary-strong); }
+
+.proto__tunnel { position: relative; height: 120px; margin-inline: -8px; }
+.proto__tube {
+  position: absolute; inset: 20px 0;
+  border-radius: 40px;
+  background: linear-gradient(90deg, rgba(56, 201, 214, 0.08), rgba(111, 104, 242, 0.1));
+  border-top: 1px solid rgba(56, 201, 214, 0.35);
+  border-bottom: 1px solid rgba(111, 104, 242, 0.35);
+  box-shadow: inset 0 0 24px rgba(56, 201, 214, 0.06);
+  transition: transform 500ms var(--ease-out), opacity 500ms;
+}
+.proto__wave { position: absolute; inset: 20px 24px; width: calc(100% - 48px); height: 80px; }
+.proto__wave-path { fill: none; stroke: url(#proto-grad); stroke-width: 2; vector-effect: non-scaling-stroke; opacity: 0.55; stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: wave-draw 1.2s var(--ease-out) forwards; }
+.proto__wave-pulse { fill: none; stroke: #d6fbfd; stroke-width: 2.5; vector-effect: non-scaling-stroke; stroke-dasharray: 60 1400; animation: wave-pulse 2.4s linear infinite; }
+@keyframes wave-draw { to { stroke-dashoffset: 0; } }
+@keyframes wave-pulse { from { stroke-dashoffset: 60; } to { stroke-dashoffset: -1400; } }
+
+.proto__stage.is-switching .proto__tube { transform: scaleY(0.4); opacity: 0.5; }
+.proto__stage.is-switching .proto__wave-pulse { opacity: 0; }
+
+.proto__badge {
+  position: absolute; left: 50%; top: calc(100% + 6px);
+  transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 14px; border-radius: 12px;
+  font-size: 0.82rem; white-space: nowrap; color: var(--color-text-soft);
+  background: rgba(8, 16, 26, 0.8);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--rim-light);
+}
+.proto__badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-primary-strong); box-shadow: 0 0 10px var(--color-primary); }
+.proto__badge-dot.is-busy { background: #f0c46a; box-shadow: 0 0 10px #f0c46a; animation: blink 0.6s ease-in-out infinite alternate; }
+@keyframes blink { to { opacity: 0.3; } }
+
+.proto__autoline {
+  position: absolute; left: 0; top: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.76rem; font-family: var(--font-mono);
+  color: var(--color-muted);
+  padding: 6px 10px; border-radius: 10px;
+  border: 1px solid var(--color-border);
+  transition: color var(--dur), border-color var(--dur), background var(--dur);
+}
+.proto__autoline.is-on { color: var(--color-secondary-strong); border-color: rgba(111, 104, 242, 0.4); background: rgba(111, 104, 242, 0.08); }
+
+@media (max-width: 1024px) {
+  .proto__layout { grid-template-columns: 1fr; }
+  .proto__stage { order: -1; }
+}
+@media (max-width: 560px) {
+  .proto__endpoint-core { width: 56px; height: 56px; border-radius: 18px; }
+  .proto__endpoint-core img { width: 24px; height: 24px; }
+  .proto__endpoint small { font-size: 0.62rem; }
+  .proto__tunnel { height: 90px; }
+  .proto__wave { inset: 15px 12px; width: calc(100% - 24px); height: 60px; }
+  .proto__tube { inset: 15px 0; }
+  .proto__badge { font-size: 0.74rem; }
+}

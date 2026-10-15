@@ -1,0 +1,119 @@
+/*
+ * Xyberveil design tokens.
+ * Palette is sampled from the Xyberveil shield logo:
+ *   - left half:   deep petrol teal  (#00313f) with teal dot matrix  (#246470)
+ *   - right half:  midnight indigo   (#191758) with teal circuit traces
+ *   - rim + mark:  polished chrome   (#cdcdcd → #595f73 gunmetal)
+ * Brightened variants are derived for use on a dark UI.
+ * Change the whole theme from here.
+ */
+:root {
+  /* Core palette */
+  --color-primary: #38c9d6;          /* logo teal, lifted for UI */
+  --color-primary-strong: #5fe0e8;
+  --color-primary-deep: #00313f;     /* sampled: shield left half */
+  --color-secondary: #6f68f2;        /* logo indigo, lifted for UI */
+  --color-secondary-strong: #8c86ff;
+  --color-secondary-deep: #191758;   /* sampled: shield right half */
+  --color-accent: #d3d8e2;           /* chrome rim */
+  --color-gunmetal: #595f73;         /* sampled: X mark shadow */
+
+  /* Surfaces */
+  --color-background: #03070c;
+  --color-background-2: #050b16;
+  --color-surface: rgba(255, 255, 255, 0.035);
+  --color-surface-2: rgba(255, 255, 255, 0.06);
+  --color-surface-strong: rgba(255, 255, 255, 0.09);
+
+  /* Text */
+  --color-text: #eef2f7;
+  --color-text-soft: #c3cad6;
+  --color-muted: #8791a3;
+  --color-faint: #566074;
+
+  /* Lines */
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-border-glow: rgba(56, 201, 214, 0.45);
+
+  /* Glows */
+  --glow-primary: rgba(56, 201, 214, 0.35);
+  --glow-secondary: rgba(111, 104, 242, 0.35);
+  --glow-chrome: rgba(211, 216, 226, 0.18);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(120deg, var(--color-primary) 0%, #4f9ce6 45%, var(--color-secondary) 100%);
+  --gradient-shield: linear-gradient(90deg, var(--color-primary-deep) 0%, var(--color-primary-deep) 49.9%, var(--color-secondary-deep) 50.1%, var(--color-secondary-deep) 100%);
+  --gradient-chrome: linear-gradient(180deg, #ffffff 0%, #d7dbe3 30%, #8c93a3 55%, #e4e7ee 75%, #9aa0ae 100%);
+  --gradient-text: linear-gradient(180deg, #ffffff 10%, #c2c9d6 100%);
+  --gradient-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.025) 40%, rgba(255, 255, 255, 0.015) 60%, rgba(255, 255, 255, 0.06) 100%);
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.035);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.22);
+  --glass-blur: 18px;
+
+  /* Typography */
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --fs-display: clamp(2.9rem, 1.1rem + 5.4vw, 6.1rem);
+  --fs-h1: clamp(2.5rem, 1.3rem + 4.6vw, 5.2rem);
+  --fs-h2: clamp(2rem, 1.2rem + 3.2vw, 3.9rem);
+  --fs-h3: clamp(1.3rem, 1.05rem + 0.9vw, 1.75rem);
+  --fs-lead: clamp(1.05rem, 0.98rem + 0.35vw, 1.3rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.72rem;
+
+  /* Layout */
+  --container: 1240px;
+  --gutter: clamp(1.25rem, 0.8rem + 2.2vw, 2.5rem);
+  --section-y: clamp(6rem, 4rem + 8vw, 11rem);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 34px;
+  /* Header geometry (constant — never changes with scroll state) */
+  --nav-offset: 14px;
+  --nav-bar-h: 60px;
+  --nav-h: calc(var(--nav-offset) + var(--nav-bar-h));
+
+  /* Stacking layers */
+  --z-content: 1;
+  --z-grain: 900;
+  --z-nav: 1000;
+
+  /* Depth system — every device/window uses these so lighting is consistent.
+     Light comes from above, slightly left. */
+  --shadow-device:
+    0 1px 1px rgba(0, 0, 0, 0.35),
+    0 6px 12px -4px rgba(0, 0, 0, 0.35),
+    0 24px 48px -16px rgba(0, 0, 0, 0.55),
+    0 60px 120px -48px rgba(1, 8, 22, 0.75);
+  --shadow-window:
+    0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.25),
+    0 18px 36px -12px rgba(0, 0, 0, 0.5),
+    0 48px 96px -40px rgba(1, 8, 22, 0.7);
+  --rim-light: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --screen-glare: linear-gradient(118deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 32%, transparent 46%);
+
+  /* Real app palette (sampled from Xyberveil app screenshots) */
+  --app-bg: #00171f;
+  --app-row: #002430;
+  --app-line: #132f3a;
+  --app-accent: #00bcda;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 180ms;
+  --dur: 380ms;
+  --dur-slow: 800ms;
+}
+
+@media (max-width: 900px) {
+  :root { --nav-offset: 10px; --nav-bar-h: 56px; }
+}

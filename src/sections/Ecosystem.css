@@ -1,0 +1,50 @@
+.eco { overflow: hidden; }
+.eco__bg {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(50% 40% at 50% 70%, rgba(111, 104, 242, 0.14), transparent 70%),
+    radial-gradient(35% 30% at 40% 60%, rgba(56, 201, 214, 0.1), transparent 70%);
+}
+
+/* One floor, one perspective: devices share a baseline at 86% */
+.eco__stage {
+  position: relative;
+  max-width: 1120px;
+  aspect-ratio: 1000 / 560;
+  margin: clamp(3rem, 2rem + 4vw, 6rem) auto 0;
+}
+.eco__floor {
+  position: absolute; left: -4%; right: -4%; top: 86%;
+  height: 30%;
+  background:
+    radial-gradient(50% 45% at 50% 0%, rgba(120, 200, 225, 0.12), transparent 70%),
+    radial-gradient(70% 60% at 50% 0%, rgba(111, 104, 242, 0.08), transparent 75%);
+}
+.eco__floor::before {
+  content: '';
+  position: absolute; left: 8%; right: 8%; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(190, 225, 240, 0.22), transparent);
+}
+
+.eco__dev { position: absolute; margin: 0; will-change: transform; }
+.eco__dev figcaption {
+  position: absolute; left: 50%; top: calc(100% + 26px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--color-muted);
+}
+/* bottoms aligned to the floor line (86%). The display sits centre-back so
+   the Chrome extension popup (top-right of its screen) is never covered. */
+.eco__dev--monitor { left: 23%; bottom: 14%; width: 56%; z-index: 1; }
+.eco__dev--laptop { left: 0; bottom: 14%; width: 40%; z-index: 2; }
+.eco__dev--phone { right: 2%; bottom: 14%; width: 13%; z-index: 3; }
+
+@media (max-width: 800px) {
+  /* two devices on small screens: laptop + phone, larger and readable */
+  .eco__stage { aspect-ratio: 400 / 330; }
+  .eco__dev--monitor { display: none; }
+  .eco__dev--laptop { left: 0; width: 76%; bottom: 16%; }
+  .eco__dev--phone { right: 0; width: 26%; bottom: 16%; }
+  .eco__floor { top: 84%; }
+}

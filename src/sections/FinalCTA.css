@@ -1,0 +1,79 @@
+.cta { overflow: hidden; padding-block: clamp(7rem, 5rem + 8vw, 12rem); }
+.cta__bg { position: absolute; inset: 0; z-index: -1; }
+.cta__bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(50% 55% at 50% 40%, rgba(0, 92, 112, 0.35), transparent 70%),
+    radial-gradient(60% 60% at 50% 100%, rgba(60, 52, 190, 0.3), transparent 70%);
+}
+.cta__aurora {
+  position: absolute; left: 50%; top: 35%;
+  width: 900px; height: 900px; max-width: 150vw;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(56, 201, 214, 0.0), rgba(56, 201, 214, 0.25), rgba(111, 104, 242, 0.3), rgba(211, 216, 226, 0.08), rgba(56, 201, 214, 0.0));
+  filter: blur(70px);
+  animation: aurora 22s linear infinite;
+  opacity: 0.8;
+}
+@keyframes aurora { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+.cta__inner { display: grid; justify-items: center; text-align: center; gap: clamp(2.5rem, 2rem + 2vw, 4rem); }
+
+.cta__orbit-wrap {
+  --size: min(440px, 84vw);
+  position: relative;
+  width: var(--size); height: var(--size);
+  display: grid; place-items: center;
+}
+.cta__orbit {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  animation: spin-slow 40s linear infinite;
+}
+.cta__orbit::before {
+  content: '';
+  position: absolute; inset: 16%;
+  border-radius: 50%;
+  border: 1px dashed rgba(56, 201, 214, 0.2);
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.cta__planet {
+  position: absolute; left: 50%; top: 50%;
+  width: 0; height: 0;
+  transform: rotate(calc(360deg / var(--n) * var(--i))) translateY(calc(var(--size) / -2));
+}
+.cta__planet-inner {
+  position: absolute;
+  width: 52px; height: 52px; left: -26px; top: -26px;
+  display: grid; place-items: center;
+  border-radius: 16px;
+  color: var(--color-text);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--color-border-strong);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+  /* counter-rotate so icons stay upright */
+  transform: rotate(calc(-360deg / var(--n) * var(--i)));
+  animation: counter 40s linear infinite;
+}
+@keyframes counter { to { rotate: -360deg; } }
+
+.cta__logo {
+  width: 46%;
+  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 50px rgba(56, 201, 214, 0.3));
+  animation: float-a 8s ease-in-out infinite;
+}
+.cta__logo img { width: 100%; height: auto; }
+
+.cta__copy { display: grid; gap: 22px; justify-items: center; }
+.cta__title { font-size: var(--fs-h1); letter-spacing: -0.05em; }
+.cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+@media (max-width: 560px) {
+  .cta__planet-inner { width: 42px; height: 42px; left: -21px; top: -21px; border-radius: 13px; }
+  .cta__actions { width: 100%; flex-direction: column; }
+  .cta__actions .btn { width: 100%; }
+}

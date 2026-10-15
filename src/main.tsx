@@ -1,5 +1,17 @@
-import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import '@fontsource-variable/geist'
+import '@fontsource-variable/geist-mono'
+import './styles/tokens.css'
+import './styles/base.css'
+import App from './App'
 
-createRoot(document.getElementById("root")!).render(<App />);
+const html = document.documentElement
+html.classList.add('js')
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) html.classList.add('reduced-motion')
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
